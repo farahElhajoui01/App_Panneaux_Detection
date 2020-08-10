@@ -11,8 +11,8 @@ class SearchWidget extends StatelessWidget {
           Expanded(child: SearchTextField()),
           SizedBox(width: 11),
           Container(
-            width: 70,
-            height: 60,
+            width: 60,
+            height: 50,
             decoration: BoxDecoration(
               color: Color(0xFFF1f94aa),
               borderRadius: BorderRadius.circular(10)

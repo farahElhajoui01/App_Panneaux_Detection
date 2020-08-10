@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "858647887317",
+    "firebase_url": "https://detectionpanneaux.firebaseio.com",
+    "project_id": "detectionpanneaux",
+    "storage_bucket": "detectionpanneaux.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:858647887317:android:570271cc2f6f63e1a2115c",
+        "android_client_info": {
+          "package_name": "com.Dpanneaux.panneauxdetection"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "858647887317-00gaf1h3j1nekak4n4bb7i4ftodcf4ns.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCSfTLMD7bZLxsRZ0i3DIbrgBIJUUDb6Ks"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "858647887317-00gaf1h3j1nekak4n4bb7i4ftodcf4ns.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

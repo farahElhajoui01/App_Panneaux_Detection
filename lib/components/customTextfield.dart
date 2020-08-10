@@ -23,15 +23,15 @@ class CustomTextField extends StatelessWidget {
       obscureText: isPassword,
       decoration: InputDecoration(
           focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(14),
+              borderRadius: BorderRadius.circular(10),
 
-              borderSide: BorderSide(color: Colors.grey, width: 1.0)
+              borderSide: BorderSide(color: Color(0xFFF1A5276 ), width: 1.0)
           ),
 
           border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(14),
+              borderRadius: BorderRadius.circular(10),
 
-              borderSide: BorderSide(color: Colors.grey, width: 1.0)
+              borderSide: BorderSide(color: Color(0xFFF1A5276 ), width: 1.0)
           ),
           labelText: label,
 
@@ -293,7 +293,7 @@ class _TextFieldState extends State<TextField> implements TextSelectionGestureDe
         textSelectionControls = materialTextSelectionControls;
         paintCursorAboveText = false;
         cursorOpacityAnimates = false;
-        cursorColor ??= themeData.cursorColor;
+        cursorColor ??= Color(0xFFF1A5276 );
         break;
     }
 

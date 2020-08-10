@@ -36,6 +36,12 @@ dependencies:
   flutter_launcher_icons: "^0.7.3"
   dio: ^3.0.10
   http_parser: ^3.1.4
+  mapbox_gl: ^0.7.0
+  cloud_firestore: ^0.13.7
+  firebase_core: ^0.4.0+9
+  firebase_database: ^3.1.6
+
+
 
 
 
@@ -47,11 +53,11 @@ dependencies:
   rflutter_alert: ^1.0.3
 
 flutter_launcher_name:
-  name: "Rak Navette"
+  name: "PunDetect"
 flutter_icons:
   android: "launcher_icon"
   ios: true
-  image_path: "assets/images/icone.png"
+  image_path: "assets/images/myIcone.png"
 
 
 dev_dependencies:
@@ -69,7 +75,6 @@ flutter:
   uses-material-design: true
   assets:
     - assets/images/
-    - assets/images/farah.jpg
 
   fonts:
     - family: Pacifico

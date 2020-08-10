@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:login_dash_animation/screens/Menu.dart';
 import 'package:login_dash_animation/screens/SplashScreen.dart';
-import 'package:login_dash_animation/screens/ajouterVehicule.dart';
+
+
+
 
 
 void main() {
@@ -30,11 +31,13 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
 
       debugShowCheckedModeBanner: false,
-      title: 'Rak Navette',
+      title: 'DP',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
       home:SplashScreen(),
+
+
     );
   }
 }
