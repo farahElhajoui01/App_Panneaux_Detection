@@ -1,5 +1,8 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter/services.dart';
 import 'package:login_dash_animation/SizeConfig.dart';
 import 'package:mysql1/mysql1.dart' hide Row;
 import 'package:flutter_session/flutter_session.dart';
@@ -29,6 +32,16 @@ class panneauencarteState extends State<panneauencarte> {
 
   var session = FlutterSession();
   MapboxMapController mapboxMapController;
+  String titre='Titre du Panneau';
+  var lat;
+  var lng;
+ // à decommenter après
+ // var point = LatLng(lat,lng);
+
+  //ces valeurs pour le test ,à commenter après
+  var point = LatLng(31.644044, -8.004617);
+//ce code à mettre dans le button 'voir' dans panneaux-list remplaçer ? par les vraies valeurs!
+  //Navigator.pushNamed(context, "Panneauencarte",arguments: {"titre" : ?, "lat": ?,"lng": ?});},
 
 
   @override
@@ -39,11 +52,34 @@ class panneauencarteState extends State<panneauencarte> {
 
   _onMapCreate(MapboxMapController controller){
     mapboxMapController=controller;
+    _onStyleLoadedCallback();
   }
-  static Future<MySqlConnection> getConnection() async {
-    final conn = await MySqlConnection.connect(ConnectionSettings(
-        host: 'shuttle.myguide.ma', user: 'myguidem', password: 'aqJ6gVU;6O79-y',db: 'myguidem_taxiapp'));
-    return conn;
+  void _onStyleLoaded() {
+
+    addImageFromAsset("assetImage2", "assets/images/marker2.png");
+  }
+  void _onStyleLoadedCallback() async {
+    await _onStyleLoaded();
+    try {
+      await loadPostions(mapboxMapController);
+    } on PlatformException catch (err) {
+      print('PlatformException: ${err.message}');
+    } catch (err) {
+      print('err message: ${err.message} somthing went wrong*************************');
+    }
+}
+  loadPostions(MapboxMapController mapboxMapController){
+    mapboxMapController.addSymbol(SymbolOptions(
+      geometry: point,
+      iconSize: 2,
+      iconImage: 'assetImage2',
+    ));
+  }
+
+  Future<void> addImageFromAsset(String name, String assetName) async {
+    final ByteData bytes = await rootBundle.load(assetName);
+    final Uint8List list = bytes.buffer.asUint8List();
+    return mapboxMapController.addImage(name, list);
   }
 
   @override
@@ -51,7 +87,15 @@ class panneauencarteState extends State<panneauencarte> {
   Widget build(BuildContext context) {
 
     SizeConfig().init(context);
-
+    //à décommenter et tester
+   /* final  Map<String, Object>data = ModalRoute.of(context).settings.arguments;
+    setState(() {
+      titre = data['titre'];
+      lat=data['lat'];
+      lng=data['lng'];
+    });
+    print("data ${data['titre']} ${data['lat']} ${data['lng']}");
+   */
     return Scaffold(
       body: Stack(
         fit: StackFit.expand,
@@ -103,7 +147,7 @@ class panneauencarteState extends State<panneauencarte> {
                       child: Column(
                         children: <Widget>[
                           SizedBox(height: SizeConfig.safeBlockHorizontal * 7),
-                          Text(" Titre du Panneau", style: TextStyle(
+                          Text(titre, style: TextStyle(
                             color: Colors.white,
                             fontSize: 20,
                             fontWeight: FontWeight.w500,
@@ -118,9 +162,9 @@ class panneauencarteState extends State<panneauencarte> {
 
                                 onMapCreated: _onMapCreate,
                                 initialCameraPosition:
-                                const CameraPosition(
-                                    zoom: 13,
-                                    target: LatLng(31.620717, -7.985883)),
+                                 CameraPosition(
+                                    zoom: 15,
+                                    target: point),
                               )
 
                           ),
