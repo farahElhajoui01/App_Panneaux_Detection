@@ -1,19 +1,11 @@
 import 'dart:typed_data';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:login_dash_animation/SizeConfig.dart';
-import 'package:mysql1/mysql1.dart' hide Row;
-import 'package:flutter_session/flutter_session.dart';
-import 'dart:convert';
-import 'dart:io'  ;
-import 'package:async/async.dart';
 import 'package:flutter_session/flutter_session.dart';
 import 'package:login_dash_animation/widgets/headerWidget.dart';
 import 'package:mapbox_gl/mapbox_gl.dart';
-
-
 
 
 
@@ -35,8 +27,8 @@ class panneauencarteState extends State<panneauencarte> {
   String titre='Titre du Panneau';
   var lat;
   var lng;
- // à decommenter après
- // var point = LatLng(lat,lng);
+  // à decommenter après
+  // var point = LatLng(lat,lng);
 
   //ces valeurs pour le test ,à commenter après
   var point = LatLng(31.644044, -8.004617);
@@ -50,28 +42,33 @@ class panneauencarteState extends State<panneauencarte> {
 
   }
 
-  _onMapCreate(MapboxMapController controller){
-    mapboxMapController=controller;
-    _onStyleLoadedCallback();
+  _onMapCreate(MapboxMapController controller) async{
+    this.mapboxMapController=controller;
+
+    await _onStyleLoadedCallback();
   }
   void _onStyleLoaded() {
 
     addImageFromAsset("assetImage2", "assets/images/marker2.png");
   }
   void _onStyleLoadedCallback() async {
-    await _onStyleLoaded();
     try {
-      await loadPostions(mapboxMapController);
+      //await loadPostions(mapboxMapController);
     } on PlatformException catch (err) {
       print('PlatformException: ${err.message}');
     } catch (err) {
       print('err message: ${err.message} somthing went wrong*************************');
     }
-}
-  loadPostions(MapboxMapController mapboxMapController){
+  }
+  loadPostions(MapboxMapController mapboxMapController) async{
+    await _onStyleLoaded();
+
+    if(mapboxMapController==null)
+      print('controller isnull');
+    else
     mapboxMapController.addSymbol(SymbolOptions(
       geometry: point,
-      iconSize: 2,
+      iconSize: 3,
       iconImage: 'assetImage2',
     ));
   }
@@ -88,7 +85,7 @@ class panneauencarteState extends State<panneauencarte> {
 
     SizeConfig().init(context);
     //à décommenter et tester
-   /* final  Map<String, Object>data = ModalRoute.of(context).settings.arguments;
+    /* final  Map<String, Object>data = ModalRoute.of(context).settings.arguments;
     setState(() {
       titre = data['titre'];
       lat=data['lat'];
@@ -146,15 +143,55 @@ class panneauencarteState extends State<panneauencarte> {
 
                       child: Column(
                         children: <Widget>[
-                          SizedBox(height: SizeConfig.safeBlockHorizontal * 7),
-                          Text(titre, style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 20,
-                            fontWeight: FontWeight.w500,
+                      Container(
+                        margin: EdgeInsets.only(
+                            left : SizeConfig.safeBlockHorizontal * 3,
+                            top: SizeConfig.safeBlockHorizontal * 2),
+                        child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+
+                            children: <Widget>[
+                            Text(titre, style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 20,
+                              fontWeight: FontWeight.w500,
 
 
-                          )),
-                          SizedBox(height: SizeConfig.safeBlockHorizontal * 7),
+                            )),
+                            SizedBox(width: SizeConfig.safeBlockHorizontal * 3),
+
+                            RaisedButton(
+                                color: Colors.white,
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10.0),
+                                    side: BorderSide(color: Color(0xFFF032f41),width: 0.3)),
+                                child:Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+
+                                  children: <Widget>[
+                                    SizedBox(width: SizeConfig.safeBlockHorizontal * 3),
+
+                                    Center(
+                                      child: Text('Voire Position', style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold,
+
+
+                                      )),
+                                    ),
+
+                                  ],
+                                ),
+                                onPressed : (){
+
+                                  loadPostions(mapboxMapController);
+                                }
+                            ),
+                          ]),
+                      ),
+
+                          SizedBox(height: SizeConfig.safeBlockHorizontal * 5),
 
                           Container(
                               height: MediaQuery.of(context).size.height * 0.635,
@@ -162,7 +199,7 @@ class panneauencarteState extends State<panneauencarte> {
 
                                 onMapCreated: _onMapCreate,
                                 initialCameraPosition:
-                                 CameraPosition(
+                                CameraPosition(
                                     zoom: 15,
                                     target: point),
                               )

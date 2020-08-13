@@ -3,11 +3,7 @@ import 'package:flutter/rendering.dart';
 import 'package:login_dash_animation/SizeConfig.dart';
 import 'package:login_dash_animation/screens/Panneauencarte.dart';
 import 'package:flutter_session/flutter_session.dart';
-import 'dart:convert';
-import 'dart:io';
-import 'package:async/async.dart';
 import 'package:flutter/src/widgets/basic.dart' as row;
-import 'package:flutter_session/flutter_session.dart';
 import 'package:login_dash_animation/widgets/headerWidget.dart';
 import 'package:login_dash_animation/widgets/searchWidget.dart';
 

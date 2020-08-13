@@ -26,7 +26,7 @@ class _SplashScreenState extends State<SplashScreen> {
     super.initState();
   }
 
-  Timer _timer;
+ /* Timer _timer;
   FlutterLogoStyle _logoStyle = FlutterLogoStyle.markOnly;
   FadeIn() {
     _timer = new Timer(const Duration(seconds: 2), () {
@@ -35,7 +35,7 @@ class _SplashScreenState extends State<SplashScreen> {
       });
     });
   }
-
+*/
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);

@@ -6,14 +6,10 @@ import 'package:flutter/services.dart';
 import 'package:login_dash_animation/SizeConfig.dart';
 import 'package:mysql1/mysql1.dart' hide Row;
 import 'package:flutter_session/flutter_session.dart';
-import 'dart:convert';
-import 'dart:io';
-import 'package:async/async.dart';
-import 'package:location/location.dart';
+
 
 import 'package:firebase_database/firebase_database.dart';
 import 'package:login_dash_animation/widgets/headerWidget.dart';
-import 'package:login_dash_animation/models/Panneau.dart';
 
 import 'package:mapbox_gl/mapbox_gl.dart';
 
@@ -57,18 +53,24 @@ loadPostions(MapboxMapController controller){
   });
 
 }
-  _onMapCreate(MapboxMapController controller) {
+  _onMapCreate(MapboxMapController controller) async{
 
-    mapboxMapController = controller;
-    _onStyleLoadedCallback();
+   this.mapboxMapController = controller;
+    await _onStyleLoadedCallback();
 
   }
-  void _onStyleLoaded() {
+  Future<void> _onStyleLoaded() async {
+    try{
+      await  addImageFromAsset("assetImage", "assets/images/marker.png");
 
-    addImageFromAsset("assetImage", "assets/images/marker.png");
+    } on PlatformException catch (err) {
+  print('PlatformException: ${err.message} somthing went wrong in add image*************************');
+  } catch (err) {
+  print('err message: ${err.message} somthing went wrong in add image*************************');
   }
-  void _onStyleLoadedCallback() async {
-    await _onStyleLoaded();
+  }
+  Future<void> _onStyleLoadedCallback() async {
+    // await _onStyleLoaded();
 
     try {
       await loadPostions(mapboxMapController);
@@ -82,6 +84,11 @@ loadPostions(MapboxMapController controller){
 
 
   Future<void> addImageFromAsset(String name, String assetName) async {
+    final ByteData bytes = await rootBundle.load(assetName);
+    final Uint8List list = bytes.buffer.asUint8List();
+    return mapboxMapController.addImage(name, list);
+  }
+  Future<void> addImageFromAsset2(String name, String assetName) async {
     final ByteData bytes = await rootBundle.load(assetName);
     final Uint8List list = bytes.buffer.asUint8List();
     return mapboxMapController.addImage(name, list);
@@ -148,6 +155,8 @@ loadPostions(MapboxMapController controller){
                             child: MapboxMap(
 
                               onMapCreated: _onMapCreate,
+                              onStyleLoadedCallback: _onStyleLoaded,
+
                               initialCameraPosition: CameraPosition(
                                   zoom: 12,
                                   target: LatLng(31.620717, -7.985883)),
