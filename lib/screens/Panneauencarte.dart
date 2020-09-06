@@ -186,11 +186,12 @@ class panneauencarteState extends State<panneauencarte> {
                                 child:Row(
                                   crossAxisAlignment: CrossAxisAlignment.center,
 
-                                  children: <Widget>[
+
+    children: <Widget>[
                                     SizedBox(width: SizeConfig.safeBlockHorizontal * 3),
 
                                     Center(
-                                      child: Text('Voire Position', style: TextStyle(
+                                      child: Text('Position', style: TextStyle(
                                         color: Colors.black,
                                         fontSize: 16,
                                         fontWeight: FontWeight.bold,
