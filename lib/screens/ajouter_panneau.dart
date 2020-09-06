@@ -195,22 +195,7 @@ class _Ajouter_panneauState extends State<Ajouter_panneau> {
     });
 
 
-    /*databaseReference.child('Categorie').once().then((DataSnapshot snapshot) {
 
-      if (snapshot.value.isNotEmpty) {
-
-          snapshot.value.forEach((value) {
-            if (value != null) {
-
-              categories.add(value['id'].toString()+'-'+value['libelle']);
-              print('**********************************'+value['libelle']);
-          }
-            else
-                        print('value is null');
-          });
-      } else
-        print("no data");
-    });*/
   }
 
   @override

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:login_dash_animation/screens/Panneauencarte.dart';
 import 'package:login_dash_animation/screens/SplashScreen.dart';
 
 
@@ -29,7 +30,9 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
 
     return MaterialApp(
-
+      routes: {
+        '/panneauencarte': (ctx) => panneauencarte(),
+      },
       debugShowCheckedModeBanner: false,
       title: 'DP',
       theme: ThemeData(

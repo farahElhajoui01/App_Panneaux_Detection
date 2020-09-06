@@ -29,7 +29,9 @@ class _HeaderWidgetState extends State<HeaderWidget> {
             bottomRight: Radius.circular(15),
           ),
           boxShadow: [
-            BoxShadow(color: Colors.black.withOpacity(0.5), blurRadius: 5)
+            BoxShadow(color: Colors.black12.withOpacity(0.7), blurRadius: 5,        offset: Offset(3.0, 3.0),
+
+            )
           ]),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,

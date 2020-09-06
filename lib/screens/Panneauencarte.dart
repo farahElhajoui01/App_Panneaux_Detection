@@ -25,8 +25,8 @@ class panneauencarteState extends State<panneauencarte> {
   var session = FlutterSession();
   MapboxMapController mapboxMapController;
   String titre='Titre du Panneau';
-  var lat;
-  var lng;
+  static var lat;
+  static var lng;
   // à decommenter après
   // var point = LatLng(lat,lng);
 
@@ -39,6 +39,8 @@ class panneauencarteState extends State<panneauencarte> {
   @override
   void initState() {
     super.initState();
+    getdata();
+
 
   }
 
@@ -61,6 +63,8 @@ class panneauencarteState extends State<panneauencarte> {
     }
   }
   loadPostions(MapboxMapController mapboxMapController) async{
+    getdata();
+
     await _onStyleLoaded();
 
     if(mapboxMapController==null)
@@ -68,7 +72,7 @@ class panneauencarteState extends State<panneauencarte> {
     else
     mapboxMapController.addSymbol(SymbolOptions(
       geometry: point,
-      iconSize: 3,
+      iconSize: 4,
       iconImage: 'assetImage2',
     ));
   }
@@ -78,21 +82,35 @@ class panneauencarteState extends State<panneauencarte> {
     final Uint8List list = bytes.buffer.asUint8List();
     return mapboxMapController.addImage(name, list);
   }
+  getdata() async{
+    var t=await FlutterSession().get("titre");
+    var lt=await FlutterSession().get("lat");
+    var lg=await FlutterSession().get("lng");
 
+    setState(() {
+      titre = t;
+      lat=lt;
+      lng=lg;
+     // point = LatLng(lat, lng);
+  });
+        }
   @override
   @override
   Widget build(BuildContext context) {
 
     SizeConfig().init(context);
     //à décommenter et tester
-    /* final  Map<String, Object>data = ModalRoute.of(context).settings.arguments;
-    setState(() {
+    /*
+     final  Map<String, Object>data = ModalRoute.of(context).settings.arguments;
+
       titre = data['titre'];
       lat=data['lat'];
       lng=data['lng'];
     });
-    print("data ${data['titre']} ${data['lat']} ${data['lng']}");
-   */
+    /
+     */
+    print("data ${titre} ${lat} ${lng} heeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeere");
+
     return Scaffold(
       body: Stack(
         fit: StackFit.expand,

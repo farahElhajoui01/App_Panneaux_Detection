@@ -138,7 +138,7 @@ loadPostions(MapboxMapController controller){
                       margin: EdgeInsets.symmetric(
                           horizontal: SizeConfig.safeBlockHorizontal * 4,
                           vertical: SizeConfig.safeBlockHorizontal * 6),
-                      height: MediaQuery.of(context).size.height * 0.75,
+                      height: MediaQuery.of(context).size.height * 0.80,
                       width: MediaQuery.of(context).size.width,
                       child: Column(
                         children: <Widget>[
